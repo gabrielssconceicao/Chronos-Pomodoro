@@ -7,7 +7,7 @@ import { CountDoown } from './components/CountDoown';
 import { DefaultInput } from './components/DefaultInput';
 import { Cycles } from './components/Cycles';
 import { DefaultButton } from './components/DefaultButton';
-import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
+import { PlayCircleIcon } from 'lucide-react';
 import { Footer } from './components/Footer';
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <form action='' className='form'>
           <div className='formRow'>
             <DefaultInput
-              labelText='Tarefa'
+              labelText='task'
               type='text'
               id='input'
               placeholder='Digite uma tarefa'
