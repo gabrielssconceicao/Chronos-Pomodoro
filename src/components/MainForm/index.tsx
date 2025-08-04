@@ -7,6 +7,7 @@ import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTask';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
+import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
 
 export function MainForm() {
   const { setState, state } = useTaskContext();
@@ -30,7 +31,7 @@ export function MainForm() {
       id: new Date().toISOString(),
       name: taskName,
       startDate: new Date().getTime(),
-      duration: 1,
+      duration: state.config[nextCycleType],
       completeDate: null,
       interuptDate: null,
       type: nextCycleType,
@@ -43,7 +44,7 @@ export function MainForm() {
         activeTask: newTask,
         currentCycle: nextCycle,
         secondsRemaining,
-        formatedSecondsRemaining: '00:00',
+        formatedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         tasks: [...prevState.tasks, newTask],
         config: { ...prevState.config },
       };
