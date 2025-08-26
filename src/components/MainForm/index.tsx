@@ -41,23 +41,9 @@ export function MainForm() {
   };
 
   const handleInterruptTask = () => {
-    // setState((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     activeTask: null,
-    //     secondsRemaining: 0,
-    //     formatedSecondsRemaining: '00:00',
-    //     tasks: prevState.tasks.map((task) => {
-    //       if (prevState.activeTask && prevState.activeTask.id === task.id) {
-    //         return {
-    //           ...task,
-    //           interuptDate: Date.now(),
-    //         };
-    //       }
-    //       return task;
-    //     }),
-    //   };
-    // });
+    dispatch({
+      type: TaskActionsTypes.INTERRUPT_TASK,
+    });
   };
   return (
     <form onSubmit={handleSubmitForm} action='' className='form'>

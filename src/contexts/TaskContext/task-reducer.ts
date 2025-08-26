@@ -9,17 +9,6 @@ export function taskReducer(
 ): TaskStateModel {
   switch (action.type) {
     case TaskActionsTypes.START_TASK: {
-      // setState((prevState) => {
-      //   return {
-      //     ...prevState,
-      //     activeTask: newTask,
-      //     currentCycle: nextCycle,
-      //     secondsRemaining,
-      //     formatedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-      //     tasks: [...prevState.tasks, newTask],
-      //     config: { ...prevState.config },
-      //   };
-      // });
       const newTask = action.payload;
       const nextCycle = getNextCycle(state.currentCycle);
       const secondsRemaining = newTask.duration * 60;
@@ -30,11 +19,25 @@ export function taskReducer(
         secondsRemaining,
         formatedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
         tasks: [...state.tasks, newTask],
-        config: { ...state.config },
       };
     }
-    case TaskActionsTypes.INTERRUPT_TASK:
-      return state;
+    case TaskActionsTypes.INTERRUPT_TASK: {
+      return {
+        ...state,
+        activeTask: null,
+        secondsRemaining: 0,
+        formatedSecondsRemaining: '00:00',
+        tasks: state.tasks.map((task) => {
+          if (state.activeTask && state.activeTask.id === task.id) {
+            return {
+              ...task,
+              interuptDate: Date.now(),
+            };
+          }
+          return task;
+        }),
+      };
+    }
     case TaskActionsTypes.RESET_STATE:
       return state;
   }
