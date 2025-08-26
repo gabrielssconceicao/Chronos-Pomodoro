@@ -5,15 +5,13 @@ import { DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTask';
-import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 
 export function MainForm() {
-  const { setState, state } = useTaskContext();
+  const { dispatch, state } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
-  const nextCycle = getNextCycle(state.currentCycle);
   const nextCycleType = getNextCycleType(state.currentCycle);
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,39 +34,30 @@ export function MainForm() {
       interuptDate: null,
       type: nextCycleType,
     };
-
-    const secondsRemaining = newTask.duration * 60;
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining,
-        formatedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-        config: { ...prevState.config },
-      };
+    dispatch({
+      type: TaskActionsTypes.START_TASK,
+      payload: newTask,
     });
   };
 
   const handleInterruptTask = () => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formatedSecondsRemaining: '00:00',
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return {
-              ...task,
-              interuptDate: Date.now(),
-            };
-          }
-          return task;
-        }),
-      };
-    });
+    // setState((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     activeTask: null,
+    //     secondsRemaining: 0,
+    //     formatedSecondsRemaining: '00:00',
+    //     tasks: prevState.tasks.map((task) => {
+    //       if (prevState.activeTask && prevState.activeTask.id === task.id) {
+    //         return {
+    //           ...task,
+    //           interuptDate: Date.now(),
+    //         };
+    //       }
+    //       return task;
+    //     }),
+    //   };
+    // });
   };
   return (
     <form onSubmit={handleSubmitForm} action='' className='form'>
