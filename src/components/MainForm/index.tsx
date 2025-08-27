@@ -6,13 +6,19 @@ import { DefaultInput } from '../DefaultInput';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTask';
 import { getNextCycleType } from '../../utils/getNextCycleType';
+import { getNextCycle } from '../../utils/getNextCycle';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
+import { Tips } from '../Tips';
 
 export function MainForm() {
   const { dispatch, state } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
-  const nextCycleType = getNextCycleType(state.currentCycle);
+  const nextCycle = getNextCycle(state.currentCycle);
+  const nextCycleType = getNextCycleType(nextCycle);
+
+  //tips
+
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -58,7 +64,7 @@ export function MainForm() {
         />
       </div>
       <div className='formRow'>
-        <p>Próximo interfalo de 25 minutos</p>
+        <Tips />
       </div>
       {state.currentCycle > 0 && (
         <div className='formRow'>
