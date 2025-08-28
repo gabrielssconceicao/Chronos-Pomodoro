@@ -41,18 +41,6 @@ export function MainForm() {
       type: TaskActionsTypes.START_TASK,
       payload: newTask,
     });
-
-    // Worker: it will run in a separate thread and will not block the main thread
-    const worker = new Worker(
-      new URL('../../workers/timer-worker.js', import.meta.url)
-    );
-
-    worker.postMessage('Olá Mundo');
-
-    // message from worker
-    worker.onmessage = function (event) {
-      console.log('Principal: Message received from main script', event.data);
-    };
   };
 
   const handleInterruptTask = () => {

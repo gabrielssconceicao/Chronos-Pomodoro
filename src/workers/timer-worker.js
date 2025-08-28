@@ -5,3 +5,16 @@ self.onmessage = function (event) {
 
   self.postMessage('Olá para voce tbm!');
 };
+
+// Worker: it will run in a separate thread and will not block the main thread
+// const worker = TimerWorkerManager.getInstance();
+
+// worker.postMessage('Olá Mundo');
+
+// // message from worker
+// worker.onmessage((event) => {
+//   console.log('Principal: Message received from worker', event.data);
+// });
+// worker.onmessage = function (event) {
+//   console.log('Principal: Message received from main script', event.data);
+// };
