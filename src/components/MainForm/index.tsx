@@ -9,6 +9,7 @@ import { getNextCycleType } from '../../utils/getNextCycleType';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 import { Tips } from '../Tips';
+import { showMessages } from '../../adapers/show-messages';
 export function MainForm() {
   const { dispatch, state } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
@@ -18,13 +19,14 @@ export function MainForm() {
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    showMessages.dismiss();
 
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
-      alert('Digite uma tarefa');
+      showMessages.warn('Digite uma tarefa');
       return;
     }
 
@@ -41,9 +43,13 @@ export function MainForm() {
       type: TaskActionsTypes.START_TASK,
       payload: newTask,
     });
+
+    showMessages.success('Tarefa iniciada');
   };
 
   const handleInterruptTask = () => {
+    showMessages.dismiss();
+    showMessages.error('Tarefa interrompida');
     dispatch({
       type: TaskActionsTypes.INTERRUPT_TASK,
     });
