@@ -33,3 +33,12 @@
   padding: 1.6rem;
   text-align: left;
 }
+
+.thSort {
+  cursor: pointer;
+  transition: all;
+}
+
+.thSort:hover {
+  filter: brightness(80%);
+}
