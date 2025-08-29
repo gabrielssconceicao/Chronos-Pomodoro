@@ -38,15 +38,22 @@ export function History() {
             </thead>
 
             <tbody>
-              {state.tasks.map((task) => (
-                <tr key={task.id}>
-                  <td>{task.name}</td>
-                  <td>{task.duration}min</td>
-                  <td>{formatDate(task.startDate)}</td>
-                  <td>{getTaskStatus(task, state.activeTask)}</td>
-                  <td>{task.type}</td>
-                </tr>
-              ))}
+              {state.tasks.map((task) => {
+                const taskTypeDict = {
+                  workTime: 'Foco',
+                  shortBreakTime: 'Descanso curto',
+                  longBreakTime: 'Descanso longo',
+                };
+                return (
+                  <tr key={task.id}>
+                    <td>{task.name}</td>
+                    <td>{task.duration}min</td>
+                    <td>{formatDate(task.startDate)}</td>
+                    <td>{getTaskStatus(task, state.activeTask)}</td>
+                    <td>{taskTypeDict[task.type]}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
