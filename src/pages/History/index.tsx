@@ -4,7 +4,9 @@ import { DefaultButton } from '../../components/DefaultButton';
 import { Heading } from '../../components/Heading';
 import { MainTemplate } from '../../templates/MainTemplate';
 import styles from './styles.module.css';
+import { useTaskContext } from '../../contexts/TaskContext/useTask';
 export function History() {
+  const { state } = useTaskContext();
   return (
     <MainTemplate>
       <Container>
@@ -34,13 +36,13 @@ export function History() {
             </thead>
 
             <tbody>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <tr key={index}>
-                  <td>Estudar</td>
-                  <td>25min</td>
-                  <td>24/02/2023</td>
-                  <td>Completa</td>
-                  <td>Foco</td>
+              {state.tasks.map((task) => (
+                <tr key={task.id}>
+                  <td>{task.name}</td>
+                  <td>{task.duration}min</td>
+                  <td>{new Date(task.startDate).toISOString()}</td>
+                  <td>{task.interuptDate}</td>
+                  <td>{task.type}</td>
                 </tr>
               ))}
             </tbody>
