@@ -9,8 +9,6 @@ import { formatDate } from '../../utils/format-date';
 import { getTaskStatus } from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { Dialog } from '../../components/Dialog';
 import { showMessages } from '../../adapers/show-messages';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 export function History() {
@@ -65,6 +63,12 @@ export function History() {
       }),
     }));
   }, [state.tasks]);
+
+  useEffect(() => {
+    return () => {
+      showMessages.dismiss();
+    };
+  }, []);
 
   return (
     <MainTemplate>
