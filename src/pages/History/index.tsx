@@ -9,11 +9,14 @@ import { formatDate } from '../../utils/format-date';
 import { getTaskStatus } from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Dialog } from '../../components/Dialog';
+import { showMessages } from '../../adapers/show-messages';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 export function History() {
   const { state, dispatch } = useTaskContext();
   const hasTasks = state.tasks.length > 0;
-
+  const [confirmClearHistory, setConfirmClearHistory] = useState(false);
   const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(
     () => {
       return {
@@ -38,9 +41,19 @@ export function History() {
   }
 
   function handleResetHistory() {
-    if (!confirm('Tem certeza que deseja apagar o histórico?')) return;
-    dispatch({ type: TaskActionsTypes.RESET_STATE });
+    showMessages.confirm(
+      'Tem certeza que deseja apagar o histórico?',
+      (confirmation) => {
+        setConfirmClearHistory(confirmation);
+      }
+    );
   }
+
+  useEffect(() => {
+    if (!confirmClearHistory) return;
+    setConfirmClearHistory(false);
+    dispatch({ type: TaskActionsTypes.RESET_STATE });
+  }, [confirmClearHistory, dispatch]);
 
   useEffect(() => {
     setSortTasksOptions((prevState) => ({
