@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react';
-import { intialTaskState } from './initialTaskState';
+import { initialTaskState } from './initialTaskState';
 import { TaskContext } from './TaskContext';
 import { taskReducer } from './task-reducer';
 import { TimerWorkerManager } from '../../workers/timer-worker-manager';
@@ -12,10 +12,10 @@ interface TaskProviderProps {
 }
 
 export function TaskContextProvider({ children }: TaskProviderProps) {
-  const [state, dispatch] = useReducer(taskReducer, intialTaskState, () => {
+  const [state, dispatch] = useReducer(taskReducer, initialTaskState, () => {
     const storedState = localStorage.getItem('task-sate');
     if (!storedState) {
-      return intialTaskState;
+      return initialTaskState;
     }
 
     const parserdStoredState = JSON.parse(storedState) as TaskStateModel;
