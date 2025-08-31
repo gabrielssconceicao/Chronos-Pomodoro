@@ -9,7 +9,7 @@ import { formatDate } from '../../utils/format-date';
 import { getTaskStatus } from '../../utils/getTaskStatus';
 import { sortTasks, type SortTasksOptions } from '../../utils/sortTasks';
 import { useEffect, useState } from 'react';
-import { showMessages } from '../../adapers/show-messages';
+import { showMessages } from '../../adapters/show-messages';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 export function History() {
   const { state, dispatch } = useTaskContext();

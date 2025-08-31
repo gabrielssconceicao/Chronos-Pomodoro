@@ -9,7 +9,7 @@ import { getNextCycleType } from '../../utils/getNextCycleType';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 import { Tips } from '../Tips';
-import { showMessages } from '../../adapers/show-messages';
+import { showMessages } from '../../adapters/show-messages';
 export function MainForm() {
   const { dispatch, state } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);

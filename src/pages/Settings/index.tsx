@@ -6,7 +6,7 @@ import { DefaultInput } from '../../components/DefaultInput';
 import { Heading } from '../../components/Heading';
 import { MainTemplate } from '../../templates/MainTemplate';
 import { useTaskContext } from '../../contexts/TaskContext/useTask';
-import { showMessages } from '../../adapers/show-messages';
+import { showMessages } from '../../adapters/show-messages';
 import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 
 export function Settings() {
