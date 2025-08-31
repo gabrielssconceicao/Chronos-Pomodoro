@@ -7,9 +7,10 @@ import { Heading } from '../../components/Heading';
 import { MainTemplate } from '../../templates/MainTemplate';
 import { useTaskContext } from '../../contexts/TaskContext/useTask';
 import { showMessages } from '../../adapers/show-messages';
+import { TaskActionsTypes } from '../../contexts/TaskContext/task-actions';
 
 export function Settings() {
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const workTimeInput = useRef<HTMLInputElement>(null);
   const shortBreakTimeInput = useRef<HTMLInputElement>(null);
   const longBreakTimeInput = useRef<HTMLInputElement>(null);
@@ -43,6 +44,12 @@ export function Settings() {
       formErros.forEach((error) => showMessages.error(error));
       return;
     }
+
+    dispatch({
+      type: TaskActionsTypes.CHANGE_SETTINGS,
+      payload: { workTime, shortBreakTime, longBreakTime },
+    });
+    showMessages.success('Configurações salvas com sucesso');
   }
 
   return (

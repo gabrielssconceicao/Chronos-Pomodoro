@@ -39,9 +39,6 @@ export function taskReducer(
         }),
       };
     }
-    case TaskActionsTypes.RESET_STATE: {
-      return { ...initialTaskState };
-    }
     case TaskActionsTypes.COUNT_DOWN: {
       const { secondsRemaining } = action.payload;
       return {
@@ -66,6 +63,16 @@ export function taskReducer(
           return task;
         }),
       };
+    }
+    case TaskActionsTypes.CHANGE_SETTINGS: {
+      return { ...state, config: { ...action.payload } };
+    }
+    case TaskActionsTypes.RESET_STATE: {
+      return { ...initialTaskState };
+    }
+
+    default: {
+      return state;
     }
   }
 }
